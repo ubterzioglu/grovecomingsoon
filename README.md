@@ -53,20 +53,30 @@ build pack. Coolify needs no other build configuration:
 | --- | --- |
 | Build pack | Dockerfile |
 | Base directory | `/` |
-| Port | `80` |
+| Dockerfile location | `/Dockerfile` |
+| Ports Exposes | `8080` |
 | Health check path | `/healthz` |
-| Domain | `https://grovesoftware.tech` |
+| Health check port | `8080` |
+| Domains | `https://grovesoftware.tech,https://www.grovesoftware.tech` |
 
-Point the domain's `A` record at the Coolify host, then let Coolify issue the
-Let's Encrypt certificate. TLS terminates at Coolify's proxy, so the container
-itself only ever speaks plain HTTP on port 80 — that is intentional.
+**The port must match on both sides.** `Ports Exposes` is the port *inside* the
+container, which Coolify's proxy dials over the Docker network — it is never
+published to the host, so it cannot collide with anything else running on the
+server. nginx listens on 8080 (`nginx.conf`), so the field must say 8080. A
+mismatch here is the usual cause of `Bad Gateway`: the proxy connects to a port
+where nothing is listening.
+
+Point the domain's `A` record at the Coolify host, and add `www` as a `CNAME` to
+the apex if you serve both. Coolify issues the Let's Encrypt certificate and
+terminates TLS at its proxy, so the container itself only ever speaks plain
+HTTP — that is intentional.
 
 Run it locally the same way Coolify will:
 
 ```bash
 docker build -t grove .
-docker run --rm -p 8080:80 grove
-# http://localhost:8080
+docker run --rm -p 3000:8080 grove
+# http://localhost:3000
 ```
 
 `RUN nginx -t` runs during the build, so a broken `nginx.conf` fails the build
