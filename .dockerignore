@@ -1,0 +1,13 @@
+# Only the served files belong in the image; everything below is repo furniture.
+.git
+.gitignore
+.github
+.omc
+.claude
+assets/source
+docs
+README.md
+CNAME
+Dockerfile
+.dockerignore
+*.md
