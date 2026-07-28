@@ -192,7 +192,7 @@ body {
   color: rgba(143, 163, 162, 0.62);
 }
 
-.foot-domain { color: rgba(73, 180, 177, 0.72); }
+.foot-where { color: rgba(73, 180, 177, 0.72); }
 
 /* ---------- entrance ---------- */
 
@@ -246,13 +246,26 @@ body {
   .lede { max-width: 24rem; }
 }
 
-/* Landscape phones and short windows: shrink the lockup so the block still
-   clears the fold rather than relying on the scroll. */
+/* Landscape phones and short windows. Declared after the narrow-screen block
+   so these win where both apply. The lede is given more width here, not less:
+   at 740px a wider measure costs one fewer line, which buys back more height
+   than shrinking the type does. */
 @media (max-height: 620px) {
-  .headline { font-size: clamp(2.1rem, 5.4vw, 3.6rem); }
+  .shell { padding-block: 1.25rem; gap: 1.25rem; }
   .mark img { width: clamp(10rem, 20vw, 15rem); }
-  .rule { margin-block: 1.1rem 0.9rem; }
-  .link { margin-top: 1.3rem; }
+  .rule { margin-block: 1.1rem 0.85rem; }
+  .headline {
+    margin-top: 0.7rem;
+    font-size: clamp(2.1rem, 5.4vw, 3.6rem);
+  }
+  .block { max-width: 44rem; }
+  .lede {
+    margin-top: 0.85rem;
+    max-width: 40rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .link { margin-top: 1.25rem; padding-block: 0.6rem; }
 }
 
 /* ---------- reduced motion ---------- */
