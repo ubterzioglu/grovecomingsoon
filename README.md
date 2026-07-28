@@ -101,4 +101,6 @@ drop the two external origins.
 - `prefers-reduced-motion` renders the mesh fully grown and static, and drops
   the entrance animation.
 - The canvas pauses when the tab is hidden and caps device pixel ratio at 2.
-- Total page weight is roughly 300 KB, most of it the logo and fonts.
+- First load is about 125 KB of local files — 106 KB of that is the logo —
+  plus the two web fonts. `og-image.png` and `icon-512.png` are only fetched by
+  link unfurlers and the OS, never during a normal page view.
